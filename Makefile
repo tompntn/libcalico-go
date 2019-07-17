@@ -5,7 +5,7 @@ default: test
 all: test
 
 ## Run the tests
-test: ut fv
+test: vendor ut fv
 
 # Define some constants
 #######################
@@ -26,10 +26,9 @@ DOCKER_GO_BUILD := mkdir -p .go-pkg-cache && \
                               --net=host \
                               $(EXTRA_DOCKER_ARGS) \
                               -e LOCAL_USER_ID=$(LOCAL_USER_ID) \
-                              -v $(HOME)/.glide:/home/user/.glide:rw \
-                              -v $(CURDIR):/go/src/github.com/$(PACKAGE_NAME):rw \
+                              -v $(CURDIR):/$(PACKAGE_NAME):rw \
                               -v $(CURDIR)/.go-pkg-cache:/go/pkg:rw \
-                              -w /go/src/github.com/$(PACKAGE_NAME) \
+                              -w /$(PACKAGE_NAME) \
                               $(CALICO_BUILD)
 
 # Create a list of files upon which the generated file depends, skip the generated file itself
@@ -45,6 +44,7 @@ TEST_CERT_PATH := test/etcd-ut-certs/
 .PHONY: clean
 ## Removes all .coverprofile files, the vendor dir, and .go-pkg-cache
 clean:
+	-chmod -R +w .go-pkg-cache
 	find . -name '*.coverprofile' -type f -delete
 	rm -rf vendor .go-pkg-cache
 	rm -rf $(BINDIR)
@@ -54,11 +54,8 @@ clean:
 # Building the binary
 ###############################################################################
 # Build the vendor directory.
-vendor: glide.lock
-	# To build without Docker just run "glide install -strip-vendor"
-	# Ensure that the glide cache directory exists.
-	mkdir -p $(HOME)/.glide
-	$(DOCKER_GO_BUILD) glide install --strip-vendor
+vendor: go.mod
+	$(DOCKER_GO_BUILD) go mod vendor
 
 GENERATED_FILES:=./lib/apis/v3/zz_generated.deepcopy.go \
            ./lib/upgrade/migrator/clients/v1/k8s/custom/zz_generated.deepcopy.go
@@ -121,20 +118,6 @@ goimports go-fmt format-code fix: vendor
 ## Install Git hooks
 install-git-hooks:
 	./install-git-hooks
-
-## Check if glide up creates any warnings. Skip if there are any local changes to the glide files.
-check-glide-warnings:
-	@mkdir -p ~/.glide
-	@if ! git status glide.lock glide.yaml --porcelain | grep "."; then \
-		$(DOCKER_GO_BUILD) sh -c 'glide up --strip-vendor 2>&1' | grep '\[WARN\]'; RESULT=$$?; \
-		git checkout -- glide.yaml glide.lock; \
-		if [ $$RESULT -eq 1 ]; then true; else false; fi; \
-	else \
-		echo "Skipping glide checks as there are local updates"; \
-	fi
-	# That can leave a present but empty vendor directory, which
-	# confuses the rest of the Makefile something rotten...
-	-rm -rf vendor
 
 ###############################################################################
 # Tests
@@ -295,7 +278,7 @@ stop-coredns:
 ###############################################################################
 .PHONY: ci
 ## Run what CI runs
-ci: clean check-glide-warnings static-checks test
+ci: clean static-checks test
 
 .PHONY: help
 ## Display this help text
