@@ -11,7 +11,7 @@ test: vendor ut fv
 #######################
 K8S_VERSION      ?= v1.14.1
 ETCD_VERSION     ?= v3.3.7
-COREDNS_VERSION  ?= 1.5.0
+COREDNS_VERSION  ?= 1.5.2
 GO_BUILD_VER     ?= v0.22
 CALICO_BUILD     ?= calico/go-build:$(GO_BUILD_VER)
 PACKAGE_NAME     ?= projectcalico/libcalico-go
@@ -20,6 +20,7 @@ BINDIR           ?= bin
 LIBCALICO-GO_PKG  = github.com/projectcalico/libcalico-go
 TOP_SRC_DIR       = lib
 MY_UID           := $(shell id -u)
+GINKGO_ARGS      := -mod=vendor
 
 DOCKER_GO_BUILD := mkdir -p .go-pkg-cache && \
                    docker run --rm \

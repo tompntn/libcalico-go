@@ -36,13 +36,12 @@ require (
 	github.com/projectcalico/go-json v0.0.0-20161128004156-6219dc7339ba // indirect
 	github.com/projectcalico/go-yaml v0.0.0-20161201183616-955bc3e451ef // indirect
 	github.com/projectcalico/go-yaml-wrapper v0.0.0-20161127220527-598e54215bee
-	github.com/projectcalico/logrus v1.0.4-calico // indirect
 	github.com/prometheus/client_golang v0.0.0-20171005112915-5cec1d0429b0
 	github.com/prometheus/client_model v0.0.0-20170216185247-6f3806018612 // indirect
 	github.com/prometheus/common v0.0.0-20171104095907-e3fb1a1acd76 // indirect
 	github.com/prometheus/procfs v0.0.0-20171017214025-a6e9df898b13 // indirect
 	github.com/satori/go.uuid v1.2.0
-	github.com/sirupsen/logrus v0.0.0-00010101000000-000000000000
+	github.com/sirupsen/logrus v1.4.0
 	github.com/soheilhy/cmux v0.1.4 // indirect
 	github.com/tinylib/msgp v1.1.0 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5 // indirect
@@ -65,5 +64,3 @@ require (
 	k8s.io/client-go v8.0.0+incompatible
 	k8s.io/code-generator v0.0.0-20190717022600-77f3a1fe56bb // indirect
 )
-
-replace github.com/sirupsen/logrus => github.com/projectcalico/logrus v1.0.4-calico
