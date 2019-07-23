@@ -21,7 +21,7 @@ LIBCALICO-GO_PKG  = github.com/projectcalico/libcalico-go
 TOP_SRC_DIR       = lib
 MY_UID           := $(shell id -u)
 GINKGO_ARGS      := -mod=vendor
-EXTRA_DOCKER_ARGS := "-e GO111MODULE=on"
+EXTRA_DOCKER_ARGS := -e GO111MODULE=on
 
 DOCKER_GO_BUILD := mkdir -p .go-pkg-cache && \
                    docker run --rm \
