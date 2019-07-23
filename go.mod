@@ -44,6 +44,7 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/soheilhy/cmux v0.1.4 // indirect
+	github.com/spf13/pflag v1.0.3
 	github.com/tinylib/msgp v1.1.0 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5 // indirect
 	github.com/ugorji/go v0.0.0-20171019201919-bdcc60b419d1 // indirect
@@ -63,6 +64,8 @@ require (
 	k8s.io/apimachinery v0.0.0-20180621070125-103fd098999d
 	k8s.io/client-go v8.0.0+incompatible
 	k8s.io/code-generator v0.0.0-20190717022600-77f3a1fe56bb
+	k8s.io/gengo v0.0.0-20190128074634-0689ccc1d7d6
+	k8s.io/klog v0.3.1
 )
 
 replace github.com/sirupsen/logrus => github.com/projectcalico/logrus v1.0.4-calico
