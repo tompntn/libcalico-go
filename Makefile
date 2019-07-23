@@ -21,6 +21,7 @@ LIBCALICO-GO_PKG  = github.com/projectcalico/libcalico-go
 TOP_SRC_DIR       = lib
 MY_UID           := $(shell id -u)
 GINKGO_ARGS      := -mod=vendor
+EXTRA_DOCKER_ARGS := "-e GO111MODULE=on"
 
 DOCKER_GO_BUILD := mkdir -p .go-pkg-cache && \
                    docker run --rm \
@@ -136,6 +137,7 @@ GINKGO_FOCUS?=.*
 ut: vendor
 	-mkdir -p .go-pkg-cache
 	docker run --rm -t --privileged --net=host \
+		$(EXTRA_DOCKER_ARGS) \
 		-e LOCAL_USER_ID=$(LOCAL_USER_ID) \
 		-v $(CURDIR):/$(PACKAGE_NAME):rw \
 		-v $(CURDIR)/.go-pkg-cache:/go-cache/:rw \
@@ -148,6 +150,7 @@ fv: vendor run-etcd run-etcd-tls run-kubernetes-master run-coredns
 	-mkdir -p .go-pkg-cache
 	docker run --rm -t --privileged --net=host \
 		--dns $(shell docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' coredns) \
+		$(EXTRA_DOCKER_ARGS) \
 		-e LOCAL_USER_ID=$(LOCAL_USER_ID) \
 		-v $(CURDIR):/$(PACKAGE_NAME):rw \
 		-v $(CURDIR)/.go-pkg-cache:/go-cache/:rw \
