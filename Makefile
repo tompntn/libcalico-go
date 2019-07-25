@@ -56,7 +56,7 @@ clean:
 # Building the binary
 ###############################################################################
 # Build the vendor directory.
-vendor: go.mod
+vendor: go.mod go.sum
 	$(DOCKER_GO_BUILD) go mod vendor
 
 GENERATED_FILES:=./lib/apis/v3/zz_generated.deepcopy.go \
