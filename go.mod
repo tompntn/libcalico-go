@@ -42,7 +42,7 @@ require (
 	github.com/prometheus/common v0.0.0-20171104095907-e3fb1a1acd76 // indirect
 	github.com/prometheus/procfs v0.0.0-20171017214025-a6e9df898b13 // indirect
 	github.com/satori/go.uuid v1.2.0
-	github.com/sirupsen/logrus v1.4.2
+	github.com/sirupsen/logrus v0.0.0
 	github.com/soheilhy/cmux v0.1.4 // indirect
 	github.com/tinylib/msgp v1.1.0 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5 // indirect
@@ -65,4 +65,4 @@ require (
 	k8s.io/code-generator v0.0.0-20190717022600-77f3a1fe56bb
 )
 
-replace github.com/sirupsen/logrus => github.com/projectcalico/logrus v1.0.4-calico
+replace github.com/sirupsen/logrus => github.com/projectcalico/logrus v0.0.0-20180627202928-fc9bbf2f57995271c5cd6911ede7a2ebc5ea7c6f

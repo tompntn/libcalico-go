@@ -2420,6 +2420,7 @@ var _ = testutils.E2eDatastoreDescribe("Test Watch support", testutils.Datastore
 				case e := <-watch.ResultChan():
 					// Got an event. Check it's OK.
 					Expect(e.Error).NotTo(HaveOccurred())
+					Expect(e.Type).To(Equal(api.WatchAdded))
 					receivedEvent = true
 					break
 				default:
